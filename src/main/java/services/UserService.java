@@ -1,8 +1,10 @@
 package services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import db.User;
@@ -16,6 +18,14 @@ public class UserService {
 	
     public List<User> getUsers(){
         return repo.findAll();
+    }
+    
+    public Optional<User> getUser(Long id){
+        return repo.findById(id);
+    }
+    
+    public List<User> getUserAfterPointsDSC(){
+        return repo.findAll(Sort.by(Sort.Direction.DESC, "Points"));
     }
     
     public User addUser(User newUser) {

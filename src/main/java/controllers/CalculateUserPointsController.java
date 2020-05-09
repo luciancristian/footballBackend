@@ -1,15 +1,22 @@
 package controllers;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import services.CalculateUserPoints;
+import services.UserService;
+import db.User;
 
 @RestController
 public class CalculateUserPointsController {
 
-    @GetMapping("/calculate")
-    public int function(){
-        return CalculateUserPoints.calculate();
+	@Autowired
+	private UserService userService;
+	
+    @GetMapping("/userPoints")
+    public List<User> calculate(){
+        return userService.getUserAfterPointsDSC();
     }
 }

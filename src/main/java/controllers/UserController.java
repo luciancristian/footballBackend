@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,6 +24,11 @@ public class UserController {
     @GetMapping("/users")
     public List<User> getUsers(){
         return userService.getUsers();
+    }
+    
+    @GetMapping("/user/{id}")
+    public Optional<User> getUser(@PathVariable Long id){
+        return userService.getUser(id);
     }
     
     @PostMapping("/addUser")
