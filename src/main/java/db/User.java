@@ -2,12 +2,16 @@ package db;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -24,10 +28,22 @@ public class User {
 
     private String password;
 
-    @OneToMany(mappedBy = "user")
-    private Set<Pronostic> pronostics;
 
-    public Long getId() {
+    @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
+    //@JoinColumn(name = "userPronostics_fk", referencedColumnName = "id")
+    private Set<Prediction> predictions;
+
+    private int points;
+    
+    public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
+	}
+
+	public Long getId() {
         return id;
     }
 
@@ -59,11 +75,11 @@ public class User {
         this.password = password;
     }
 
-    public Set<Pronostic> getPronostics() {
-        return pronostics;
+    public Set<Prediction> getPredictions() {
+        return predictions;
     }
 
-    public void setPronostics(Set<Pronostic> pronostics) {
-        this.pronostics = pronostics;
+    public void setPredictions(Set<Prediction> predictions) {
+        this.predictions = predictions;
     }
 }

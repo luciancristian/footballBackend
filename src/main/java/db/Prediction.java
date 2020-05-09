@@ -4,10 +4,12 @@ import javax.persistence.*;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Component
-@Table(uniqueConstraints={@UniqueConstraint(columnNames = {"user_id" , "matchResult_id"})})
-public class Pronostic {
+//@Table(uniqueConstraints={@UniqueConstraint(columnNames = {"user_id" , "matchResult_id"})})
+public class Prediction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,12 +21,13 @@ public class Pronostic {
     private int goalsTeam1;
     private int goalsTeam2;
 
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name="user_id")
+    //@JoinColumn(name="user_id")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name="matchResult_id")
+    //@JoinColumn(name="matchResult_id")
     private MatchResult matchResult;
 
     public int getId() {
@@ -67,12 +70,12 @@ public class Pronostic {
         this.goalsTeam2 = goalsTeam2;
     }
 
-    public Long getUser() {
-        return user.getId();
+    public User getUser() {
+        return user;
     }
 
     public void setUser(User user) {
-        this.user.setId(user.getId());
+        this.user = user;
     }
 
     public MatchResult getMatchResult() {

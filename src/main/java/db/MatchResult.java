@@ -6,6 +6,8 @@ import javax.persistence.*;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Component
 public class MatchResult {
@@ -19,8 +21,9 @@ public class MatchResult {
     private int goalsTeam1;
     private int goalsTeam2;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "matchResult")
-    private Set<Pronostic> pronostics;
+    private Set<Prediction> predictions;
 
     public int getId() {
         return id;
@@ -62,11 +65,11 @@ public class MatchResult {
         this.goalsTeam2 = goalsTeam2;
     }
 
-    public Set<Pronostic> getPronostics() {
-        return pronostics;
+    public Set<Prediction> getPredictions() {
+        return predictions;
     }
 
-    public void setPronostics(Set<Pronostic> pronostics) {
-        this.pronostics = pronostics;
+    public void setPredictions(Set<Prediction> predictions) {
+        this.predictions = predictions;
     }
 }
