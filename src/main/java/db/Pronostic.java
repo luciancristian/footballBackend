@@ -67,12 +67,12 @@ public class Pronostic {
         this.goalsTeam2 = goalsTeam2;
     }
 
-    public User getUser() {
-        return user;
+    public Long getUser() {
+        return user.getId();
     }
 
     public void setUser(User user) {
-        this.user = user;
+        this.user.setId(user.getId());
     }
 
     public MatchResult getMatchResult() {
