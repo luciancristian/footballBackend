@@ -12,49 +12,48 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import db.User;
-import interfaces.IUserRepo;
+import services.UserService;
 
 @RestController
 public class UserController {
 
     @Autowired
-    IUserRepo repo;
+    private UserService userService;
 
     @GetMapping("/users")
-    public List<User> function(){
-        return repo.findAll();
+    public List<User> getUsers(){
+        return userService.getUsers();
     }
     
     @PostMapping("/addUser")
     public User addUser(@RequestBody User newUser) {
-    	return repo.save(newUser);
+    	return userService.addUser(newUser);
     }
     
     @PostMapping("/addUsers")
     public List<User> addUsers(@RequestBody List<User> newUsers) {
-    	return repo.saveAll(newUsers);
+    	return userService.addUsers(newUsers);
     }
     
     @PutMapping("/updateUser")
     public User updateUsers(@RequestBody User updateUser) {
-    	return repo.save(updateUser);
+    	return userService.updateUser(updateUser);
     }
     
     @PutMapping("/updateUsers")
     public List<User> updateUsers(@RequestBody List<User> updateUsers) {
-    	return repo.saveAll(updateUsers);
+    	return userService.updateUsers(updateUsers);
     }
     
     //send in path the id of the user
     @DeleteMapping(value="/deleteUser/{id}")
     public void deleteUser(@PathVariable Long id) {
-    	repo.deleteById(id);
+    	userService.deleteUser(id);
     }
     
     //send an array of long in body
     @DeleteMapping(value="/deleteUsers")
-    public void deleteUser(@RequestBody List<Long> ids) {
-    	ids.forEach((id) -> {repo.deleteById(id);});
+    public void deleteUsers(@RequestBody List<Long> ids) {
+    	userService.deleteUsers(ids);
     }
-    
 }
